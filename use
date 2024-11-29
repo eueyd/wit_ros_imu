@@ -1,0 +1,27 @@
+看到这个截图，似乎你的 IMU 设备被识别为 `/dev/ttyACM0` 而不是 `/dev/ttyUSB0`。这很正常，一些 IMU 设备会以 ACM 设备的形式出现。
+
+让我们修改一下配置：
+
+1. 首先给这个端口添加权限：
+```bash
+sudo chmod 777 /dev/ttyACM0
+```
+
+2. 需要修改 launch 文件里的端口配置。进入 launch 文件目录：
+```bash
+cd ~/ros_ws/src/wit_ros_imu/src/launch
+```
+将对应 launch 文件中的 `/dev/ttyUSB0` 改为 `/dev/ttyACM0`
+
+3. 然后就可以启动 IMU：
+```bash
+roslaunch wit_ros_imu rviz_and_imu.launch
+```
+
+4. 要查看数据，可以打开新终端：
+```bash
+rostopic echo /wit/imu
+rostopic echo /wit/mag
+```
+
+需要我帮你修改 launch 文件吗？或者你遇到其他问题需要解决？
